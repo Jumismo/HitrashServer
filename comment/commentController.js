@@ -1,19 +1,14 @@
 Comment = require('./commentModel');
 
 exports.new = function (req, res) {
-    console.log(req.body);
     var comment = new Comment();
     comment.comment = req.body.comment;
-    console.log(req.body.comment);
     comment.publicationDate = req.body.publicationDate? req.body.publicationDate : Date.now();
 
     if(req.body.id_author) {
-        var author_id = req.body.id_author;
-        console.log("Author id is: " + author_id);
         comment.author = req.body.id_author;
     }
     if(req.body.id_group) {
-        console.log("Group id is: " +  req.body.id_group);
         comment.group = req.body.id_group
     }
 
