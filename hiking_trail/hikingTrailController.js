@@ -25,16 +25,21 @@ exports.new = function (req, res) {
     hikingTrail.hardness = req.body.hardness;
     hikingTrail.claims = 0;
     hikingTrail.informationOffice = req.body.informationOffice;
-    hikingTrail.isActive = req.body.isActive;
+    hikingTrail.isActive = req.body.isActive ? req.body.isActive : false;
     hikingTrail.province = req.body.province;
     hikingTrail.signalize = req.body.signalize;
     hikingTrail.location = req.body.location;
-    hikingTrail.user = req.body.user._id;
-
-    for(var k = 0; k < req.body.groups.length; k++){
-        hikingTrail.groups.push(req.body.groups[k]);
+    if(req.body.id_user)
+    {
+        hikingTrail.user = req.body.id_user;
     }
 
+    if(req.body.groups) {
+        for (var k = 0; k < req.body.groups.length; k++) {
+            hikingTrail.groups.push(req.body.groups[k]);
+        }
+    }
+    console.log(hikingTrail);
     hikingTrail.save(function (err) {
         if (err)
             res.json(err);
@@ -109,5 +114,16 @@ exports.cleaningClaims = function (req, res) {
             data: hikingTrail
         });
     });
+};
+
+exports.activeHikingTrails = function (req, res) {
+    HikingTrail.find().where('isActive', true).exec(function (err, hikingTrails) {
+        if(err)
+            res.send(err);
+        res.json({
+            message: "Hiking Trails loading...",
+            data: hikingTrails
+        })
+    })
 };
 

@@ -84,5 +84,16 @@ exports.userGroup = function (req, res) {
             data: group
         });
     })
+};
 
+exports.cleaningGroup = function (req, res) {
+    Group.find().populate('hikingTrail').populate('users').populate('comments').where('isCleaningGroup', true).exec(function (err, group) {
+        // console.log("Los grupos son: " + group);
+        if (err)
+            res.send(err);
+        res.json({
+            message: 'Group details loading..',
+            data: group
+        });
+    })
 };

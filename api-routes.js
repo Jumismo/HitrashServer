@@ -33,6 +33,8 @@ router.route('/hikingTrail/:hiking_trail_id')
     .patch(hikingTrailController.update)
     .put(hikingTrailController.update)
     .delete(hikingTrailController.delete);
+router.route('/activeHikingTrails')
+    .get(hikingTrailController.activeHikingTrails);
 
 // Method for Claims
 router.route('/cleaningClaims')
@@ -60,6 +62,8 @@ router.route('/group/:group_id')
     .put(groupController.update);
 router.route('/userGroup')
     .get(groupController.userGroup);
+router.route('/cleaningGroup')
+    .get(groupController.cleaningGroup);
 
 // Export API routes
 module.exports = router;

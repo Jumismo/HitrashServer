@@ -9,7 +9,7 @@ exports.new = function (req, res) {
         comment.author = req.body.id_author;
     }
     if(req.body.id_group) {
-        comment.group = req.body.id_group
+        comment.group = req.body.id_group;
     }
 
     comment.save(function (err) {
