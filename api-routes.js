@@ -21,6 +21,8 @@ router.route('/users/:user_id')
     .delete(userController.delete);
 router.route('/authentication')
     .post(userController.authentication);
+router.route('/activeUsers')
+    .get(userController.activeUsers);
 
 // Import hiking trail controller
 var hikingTrailController = require('./hiking_trail/hikingTrailController');

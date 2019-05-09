@@ -26,16 +26,21 @@ exports.new = function (req, res) {
     user.isAdmin = req.body.isAdmin ? req.body.isAdmin: false;
     user.isActive = req.body.isActive ? req.body.isActive : false;
 
-    for(var i = 0; i < req.body.hikingTrails.length; i++){
-        user.hikingTrails.push(req.body.hikingTrails[i]);
+    if(req.body.hikingTrails) {
+        for (var i = 0; i < req.body.hikingTrails.length; i++) {
+            user.hikingTrails.push(req.body.hikingTrails[i]);
+        }
+    }
+    if(req.body.comments) {
+        for (var j = 0; j < req.body.comments.length; j++) {
+            user.comments.push(req.body.comments[j]);
+        }
     }
 
-    for(var j = 0; j < req.body.comments.length; j++){
-        user.comments.push(req.body.comments[j]);
-    }
-
-    for(var k = 0; k < req.body.groups.length; k++){
-        user.groups.push(req.body.groups[k]);
+    if(req.body.groups) {
+        for (var k = 0; k < req.body.groups.length; k++) {
+            user.groups.push(req.body.groups[k]);
+        }
     }
 // save the contact and check for errors
     user.save(function (err) {
@@ -124,3 +129,14 @@ exports.authentication = function(req, res) {
         });
     });
 };
+
+exports.activeUsers = function(req, res){
+    User.find().where('isActive', true).exec(function (err, users) {
+       if(err)
+           return handleError(err);
+       res.json({
+           message: 'Users found...',
+           data: users
+       })
+    });
+}
