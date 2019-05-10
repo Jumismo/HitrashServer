@@ -7,18 +7,21 @@ exports.new = function (req, res) {
   group.description = req.body.description;
   group.date = req.body.date;
   group.location = req.body.location;
-  group.isActive  = req.body.isActive;
+  group.isActive  = req.body.isActive? req.body.isActive : false;
   group.isCleaningGroup = req.body.isCleaningGroup;
-  group.hikingTrail = req.body.hikingTrail._id;
-  for(var i = 0; i < req.body.comments.length; i++)
-  {
-      group.comments.push(req.body.comments[i]);
-  }
-  for(var j = 0; j < req.body.users.length; j++)
-  {
-      group.users.push(req.body.users[j]);
+  group.hikingTrail = req.body.id_hiking_trail;
+
+  if(req.body.comments) {
+      for (var i = 0; i < req.body.comments.length; i++) {
+          group.comments.push(req.body.comments[i]);
+      }
   }
 
+  if(req.body.users) {
+      for (var j = 0; j < req.body.users.length; j++) {
+          group.users.push(req.body.users[j]);
+      }
+  }
   group.save(function (err) {
     if (err)
         res.json(err);
