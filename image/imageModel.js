@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var imageSchema = new Schema({
     image: {
-        data: Buffer, contentType: String,
-        required: true
+        data: Buffer,
+        contentType: String
     },
     hikingTrail: {
         type: Schema.Types.ObjectId,

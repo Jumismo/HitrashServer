@@ -1,6 +1,7 @@
 // contactController.js
 // Import contact model
 User = require('./userModel');
+
 // Handle index actions
 exports.index = function (req, res) {
     User.get(function (err, users) {
@@ -54,7 +55,6 @@ exports.new = function (req, res) {
 };
 // Handle view user info
 exports.view = function (req, res) {
-    console.log(req.params.user_id);
     User.findById(req.params.user_id, function (err, user) {
         if (err)
             res.send(err);
@@ -118,15 +118,24 @@ exports.delete = function (req, res) {
 };
 
 exports.authentication = function(req, res) {
-    var name = req.body.name ? req.body.name : user.name;
-    var password = req.body.password;
+    var name = req.body.name ? req.body.name : "";
+    var password = req.body.password ? req.body.password : "";
     User.findOne({'name': name, 'password': password}).exec(function(err, user){
         if (err)
             return handleError(err);
-        res.json({
-            message: 'User Logged',
-            data: user
-        });
+
+        if(user != null) {
+            res.json({
+                message: 'User Logged',
+                data: user
+            });
+        }
+        else
+        {
+            res.json({
+                message: 'User not found'
+            });
+        }
     });
 };
 
@@ -134,9 +143,10 @@ exports.activeUsers = function(req, res){
     User.find().where('isActive', true).exec(function (err, users) {
        if(err)
            return handleError(err);
+
        res.json({
            message: 'Users found...',
            data: users
        })
     });
-}
+};

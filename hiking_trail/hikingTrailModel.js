@@ -55,8 +55,9 @@ var hikingTrailSchema = mongoose.Schema({
     images:
         [
             {
-                type: Schema.Types.ObjectId,
-                ref: 'Image'
+                type: Buffer
+                // type: Buffer,
+                // contentType: String
             }
         ],
     groups:

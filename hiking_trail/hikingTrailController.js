@@ -18,6 +18,9 @@ exports.index = function (req, res) {
 };
 
 exports.new = function (req, res) {
+    console.log("Params " +  require('util').inspect( req ) );
+    console.log("Body " +  require('util').inspect( req.body ) );
+    console.log("Files " + req.files);
     var hikingTrail = new HikingTrail();
     hikingTrail.name = req.body.name;
     hikingTrail.distance = req.body.distance;
@@ -37,6 +40,13 @@ exports.new = function (req, res) {
     if(req.body.groups) {
         for (var k = 0; k < req.body.groups.length; k++) {
             hikingTrail.groups.push(req.body.groups[k]);
+        }
+    }
+
+    if(req.body.images)
+    {
+        for(var j = 0; j < req.body.images.length; j++){
+            hikingTrail.images.push(req.body.images[j]);
         }
     }
     console.log(hikingTrail);

@@ -12,9 +12,11 @@ let apiRoutes = require("./api-routes");
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
+    limit: '50mb',
     extended: true
 }));
-app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // Connect to Mongoose and set connection variable
 mongoose.connect('mongodb://localhost:27017/hitrash');
 var db = mongoose.connection;

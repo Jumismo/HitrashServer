@@ -67,5 +67,9 @@ router.route('/userGroup')
 router.route('/cleaningGroup')
     .get(groupController.cleaningGroup);
 
+var imageController = require('./image/imageController');
+router.route('/image')
+    .post(imageController.new);
+
 // Export API routes
 module.exports = router;
