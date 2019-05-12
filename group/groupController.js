@@ -7,7 +7,7 @@ exports.new = function (req, res) {
   group.description = req.body.description;
   group.date = req.body.date;
   group.location = req.body.location;
-  group.isActive  = req.body.isActive? req.body.isActive : false;
+  group.isActive  = req.body.isActive? req.body.isActive : true;
   group.isCleaningGroup = req.body.isCleaningGroup;
   group.hikingTrail = req.body.id_hiking_trail;
 
