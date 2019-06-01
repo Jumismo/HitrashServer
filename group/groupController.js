@@ -33,7 +33,7 @@ exports.new = function (req, res) {
 };
 
 exports.view = function (req, res) {
-    Group.findById(req.params.group_id).populate('comments').populate('users').populate('hikingTrail').exec( function (err, group) {
+    Group.findById(req.params.group_id).populate({ path: 'comments', populate: {path: 'author'}}).populate('users').populate('hikingTrail').exec( function (err, group) {
         if (err)
             res.send(err);
         res.json({
