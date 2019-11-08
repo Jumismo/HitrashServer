@@ -1,13 +1,12 @@
 // api-routes.js
 // Initialize express router
-let router = require('express').Router();
+var options = {
+     setHeaders: function (res, path, stat) {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
-// Configure COrS
-router.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+let router = require('express').Router([options]);
+
 
 // Set default API response
 router.get('/', function (req, res) {
